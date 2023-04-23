@@ -10,7 +10,11 @@
         <div class="col-md-8">
             <div class="card">
 
-            <p>home-blade</p>
+                @foreach ($students as $student)
+                    <div style="display: flex; justify-content: space-between;">
+                        <h3>{{ $student->name }}</h3>
+                    </div>
+                @endforeach
 
             </div>
         </div>
