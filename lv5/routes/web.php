@@ -54,7 +54,13 @@ Route::get('/home', function() {
                     'students' => []
                 ]);
 
-            //$allSelected = [];
+
+            $studentsArr = DB::select('SELECT * FROM get_students_on_teachers_tasks(?)', array(Auth::user()->id));
+            //dd($students);
+            //$students = DB::table('users')->get();
+            $students = new Collection($studentsArr);
+
+            /* //$allSelected = [];
             $allSelected = new Collection([]);
             foreach ($teachers_tasks as $task) {
                 $selected = DB::table('selected_tasks')->where("task_id", "=", $task->id)->get();
@@ -68,10 +74,11 @@ Route::get('/home', function() {
                 $s = DB::table('users')->where("id", "=", $selected->user_id)->get();
                 //$students = array_merge($students, [$s]);
                 $students->push($s);
-            }
+            } */
 
             return view('nastavnik', [
-                'students' => $students
+                'students' => $students,
+                'teachers_tasks' => $teachers_tasks
             ]);
         }
         else if (Auth::user()->roles == 'student') {
